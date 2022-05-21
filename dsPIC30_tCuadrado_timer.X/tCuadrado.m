@@ -56,6 +56,9 @@ picTime = (0:sampleo:2)';
 % veo que coinciden las dimensiones del vector de tiempos con el de datos
 % extraidos del MPLABX
 
+% abrimos las variables que copiamos del MPLABX al Matlab
+load("usartCopiadas.mat");
+
 % Ahora ploteo ambos step
 % porque lo que hacemos en el MPLABX es un step
 % ponemos la variable en 1 y recien la bajamos cuando termina un periodo
