@@ -7,7 +7,6 @@
  * Para imprimir por la usart el numero #define usart
  * Para plotear en el MPLABX Data Visualizer #define visualizer
  */
-
 #define escalon
 //#define impulso
 
@@ -39,6 +38,7 @@
 #include "regConfig.h"
 #include "uartConfig.h"
 #include <time.h>
+#include <stdbool.h>
 
 double coef[6] = {1.0 , -3.0 , 3.0 , 3.014081790123459E-06 , 1.205632716049384E-05 , 3.014081790123456E-06
  };
@@ -53,7 +53,8 @@ void Serial_SendString(char *str);
 void Serial_PutChar(char Ch);
 
 double sampleo = 500000.0/Freq; //recordar que Frec es el Fcy
-int cuenta = 1;
+//int cuenta = 1;
+bool cuenta = true;
 
 /******************************************/
 /* Función Principal                      */
@@ -63,7 +64,7 @@ int __C30_UART = 2;
 void __attribute__((interrupt,no_auto_psv)) _T1Interrupt(void)
     {
     IFS0bits.T1IF=0;    
-    cuenta = 1;
+    cuenta = true;
     return; 
     }
 
@@ -91,7 +92,7 @@ int main(void) {
 #endif
     while(1)
     {   
-        if(cuenta==1)
+        if(cuenta)
         {
             a=a+1;
 #ifdef visualizer
@@ -121,7 +122,7 @@ int main(void) {
             imp = 0;
 #endif
 
-            if(a==98)
+            if(a==97)
             {
                 memset(estados, 0, sizeof(estados));
 #ifdef escalon
@@ -132,7 +133,7 @@ int main(void) {
 #endif
                 a = 0;
             }
-            cuenta = 0;
+            cuenta = false;
         }
         
     }
